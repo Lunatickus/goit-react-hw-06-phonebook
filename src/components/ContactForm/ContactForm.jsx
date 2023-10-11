@@ -8,7 +8,7 @@ import {
   StyledInput,
 } from './ContactForm.styled';
 import { useDispatch, useSelector } from 'react-redux';
-import { getContacts } from 'redux/selectors';
+import { getContacts } from 'redux/contactsSlice';
 import { addContact } from 'redux/contactsSlice';
 
 const schema = yup.object().shape({
