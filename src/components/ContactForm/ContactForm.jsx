@@ -7,6 +7,9 @@ import {
   StyledErrorText,
   StyledInput,
 } from './ContactForm.styled';
+import { useDispatch, useSelector } from 'react-redux';
+import { getContacts } from 'redux/selectors';
+import { addContact } from 'redux/contactsSlice';
 
 const schema = yup.object().shape({
   name: yup
@@ -34,7 +37,20 @@ const FormError = ({ name }) => {
   );
 };
 
-export const ContactForm = ({ handleSubmit }) => {
+export const ContactForm = () => {
+  const contacts = useSelector(getContacts);
+  const dispatch = useDispatch();
+
+  const handleSubmit = (contact, { resetForm }) => {
+    if (contacts.some(c => contact.name === c.name)) {
+      alert(`${contact.name} is already in contacts.`);
+      return;
+    }
+
+    dispatch(addContact(contact));
+    resetForm();
+  };
+
   return (
     <Formik
       initialValues={{ name: '', number: '' }}

@@ -1,6 +1,10 @@
+import { useDispatch } from 'react-redux';
 import { StyledFilterLabel } from './Filter.styled';
+import { setFilter } from 'redux/filterSlice';
 
-export const Filter = ({ filter, filterChange }) => {
+export const Filter = () => {
+  const dispatch = useDispatch();
+
   return (
     <StyledFilterLabel>
       Find contacts by name
@@ -8,8 +12,7 @@ export const Filter = ({ filter, filterChange }) => {
         type="text"
         name="filter"
         title="Find contacts by name"
-        value={filter}
-        onChange={filterChange}
+        onChange={e => dispatch(setFilter(e.target.value))}
       />
     </StyledFilterLabel>
   );
